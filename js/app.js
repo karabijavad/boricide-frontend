@@ -22,4 +22,5 @@ var ConcertCollection = Backbone.Collection.extend({
 });
 
 var concerts = new ConcertCollection();
+var venues = new VenueCollection();
 concerts.fetch();

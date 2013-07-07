@@ -12,6 +12,14 @@ var VenueCollection = Backbone.Collection.extend({
 
 
 var ConcertModel = Backbone.Model.extend({
+  venue: undefined,
+  initialize: function () {
+    this.venue = venues.findWhere(this.attributes.venue);
+    if (!this.venue) {
+      this.venue = new VenueModel(this.attributes.venue);
+      venues.add(this.venue);
+    }
+  }
 });
 
 var ConcertCollection = Backbone.Collection.extend({

@@ -33,5 +33,12 @@ var concerts = new ConcertCollection();
 var venues = new VenueCollection();
 
 $(document).ready(function() {
+    window.map = new GMaps({
+        div: '#map',
+        lat: 41.920955,
+        lng: -87.694332,
+        zoom: 12
+    });
+
   concerts.fetch();
 });

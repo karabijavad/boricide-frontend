@@ -62,5 +62,3 @@ $(document).ready () ->
           venue.updateInfoWindow()
         )
     })
-
-

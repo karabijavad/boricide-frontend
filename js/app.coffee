@@ -12,22 +12,25 @@ class VenueModel extends Backbone.Model
   updateInfoWindow: () ->
     iw = @marker.infoWindow
     current_content = iw.getContent()
-    console.log(current_content)
     if current_content
       new_content = current_content
     else
       new_content = ""
     for concert in @concerts
       this_concert = concert.attributes
+      start_time = moment(this_concert.start_time).fromNow()
+      end_time = moment(this_concert.end_time).fromNow()
       new_content += \
-      "#{this_concert.name} <br/>
-      #{this_concert.door_price}"
-
-      new_content += "<ul>"
+      "beggining #{start_time} <br/>
+      ending #{end_time} <br/>
+      #{this_concert.name} <br/>
+      $#{this_concert.door_price}"
+      new_content += "<ul style='list-style-type:none'>"
       for artist in this_concert.artists
         new_content += \
-        "<li>#{artist.name}</li>"
+        "<li><i>#{artist.name}</i></li>"
       new_content += "</ul>"
+      new_content += "<hr>"
     iw.setContent(new_content)
 
 class VenueCollection extends Backbone.Collection
@@ -50,15 +53,14 @@ concerts = new ConcertCollection()
 venues = new VenueCollection()
 
 $(document).ready () ->
-    window.map = new GMaps({
-        div: '#map',
-        lat: 41.920955,
-        lng: -87.694332,
-        zoom: 12
-    });
-    concerts.fetch({
-      success: () ->
-        venues.each((venue) ->
-          venue.updateInfoWindow()
-        )
-    })
+  window.map = new GMaps({
+    div: '#map',
+    lat: 41.920955,
+    lng: -87.694332,
+    zoom: 12
+  })
+  concerts.fetch({
+    success: () ->
+      venues.each (venue) ->
+        venue.updateInfoWindow()
+  })

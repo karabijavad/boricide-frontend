@@ -64,3 +64,17 @@ $(document).ready () ->
       venues.each (venue) ->
         venue.updateInfoWindow()
   })
+  map.addControl({
+    position: 'right_top',
+    content: 'Filters',
+    style: {
+      margin: '5px',
+      padding: '1px 6px',
+      border: 'solid 1px #717B87',
+      background: '#fff'
+    },
+    events: {
+      click: () ->
+    }
+  })
+

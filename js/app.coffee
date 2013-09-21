@@ -75,9 +75,6 @@ $(document).ready () ->
     },
     events: {
       click: () ->
-        $.fancybox( '<div></div>', {
-          title : '<span></span>'
-        });
     }
   })
 

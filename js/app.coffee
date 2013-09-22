@@ -75,6 +75,17 @@ $(document).ready () ->
     },
     events: {
       click: () ->
+        $modal = $('#ajax-modal');
+        $('body').modalmanager('loading');
+        $modal.load('/filters.html', '', () ->
+          $modal.modal()
+        )
+        $modal.on('click', '.update', () ->
+          $modal.find('.modal-body').prepend('<div class="alert alert-info fade in">' + 'Updated!<button type="button" class="close" data-dismiss="alert">&times;</button>' + '</div>')
+        )
+        $modal.on('click', '.btn-primary', () ->
+          $modal.close()
+        )
     }
   })
 

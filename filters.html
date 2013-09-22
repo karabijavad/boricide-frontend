@@ -1,0 +1,55 @@
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+  <h3>Filters</h3>
+</div>
+<div class="modal-body">
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#tab1" data-toggle="tab">Time range</a></li>
+    <li><a href="#tab2" data-toggle="tab">Artists playing</a></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane active" id="tab1">
+    <p>
+      <div class="well">
+        Start time<div id="datetimepicker-start" class="input-append">
+          <input data-format="MM/dd/yyyy HH:mm:ss PP" type="text"></input>
+          <span class="add-on">
+            <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+            </i>
+          </span>
+        </div>
+      </div>
+      <div class="well">
+        End time<div id="datetimepicker-end" class="input-append">
+          <input data-format="MM/dd/yyyy HH:mm:ss PP" type="text"></input>
+          <span class="add-on">
+            <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+            </i>
+          </span>
+        </div>
+      </div>
+    </p>
+    </div>
+    <div class="tab-pane" id="tab2"><p></p></div>
+  </div>
+  <button class="btn update">Update</button>
+</div>
+<div class="modal-footer">
+  <button type="button" data-dismiss="modal" class="btn">Close</button>
+  <button type="button" class="btn btn-primary">Ok</button>
+</div>
+
+<script>
+  $(function() {
+    $('#datetimepicker-start').datetimepicker({
+      language: 'en',
+      pick12HourFormat: true
+    });
+  });
+  $(function() {
+    $('#datetimepicker-end').datetimepicker({
+      language: 'en',
+      pick12HourFormat: true
+    });
+  });
+</script>

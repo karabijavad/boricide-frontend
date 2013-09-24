@@ -12,5 +12,17 @@
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "jquery" : "*",
+    "underscore" : "*",
+    "backbone": "*",
+    "backbone-tastypie": "*",
+    "gmaps": "*",
+    "moment" : "*",
+    "bootstrap": "*",
+    "bootstrap-modal": "*",
+    "bootstrap-datetimepicker" : "*"
+  }
+
 }

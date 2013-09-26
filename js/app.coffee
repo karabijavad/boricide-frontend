@@ -1,14 +1,14 @@
 api_url = "http://showshows.net"
 
 class VenueModel extends Backbone.Model
-  marker: {},
-  concerts: [],
   initialize: () ->
     @marker = window.map.addMarker({
         lat: @attributes.lat,
         lng: @attributes.lng,
         infoWindow: {}
     })
+    @concerts = []
+    @marker = {}
   updateInfoWindow: () ->
     iw = @marker.infoWindow
     current_content = iw.getContent()

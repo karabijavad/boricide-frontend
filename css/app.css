@@ -3,3 +3,10 @@
   width: auto; 
   display:inline;
 }
+
+.artists-list {
+  list-style-type: none;
+}
+.artists-list > li {
+  font-style: italic;
+}

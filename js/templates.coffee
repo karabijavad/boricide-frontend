@@ -4,7 +4,15 @@ Handlebars.registerHelper('fromNow', (context, block) ->
 
 concert_template = Handlebars.compile("
 {{#each concerts}}
-  {{fromNow attributes.start_time}}<br/>
-  {{attributes.description}}
+<div class='concert-info'>
+  <span class='time'>{{fromNow attributes.start_time}}</span>
+  <br/>
+    <ul class='artists-list'>
+    {{#each attributes.artists}}
+      <li>{{name}}</li>
+    {{/each}}
+    </ul>
+  <span class='concert-description'>{{attributes.description}}</span>
+</div>
 {{/each}}
 ")

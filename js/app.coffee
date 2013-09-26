@@ -8,7 +8,6 @@ class VenueModel extends Backbone.Model
         infoWindow: {}
     })
     @concerts = []
-    @marker = {}
   updateInfoWindow: () ->
     iw = @marker.infoWindow
     current_content = iw.getContent()

@@ -17,6 +17,7 @@
     "jquery" : "*",
     "underscore" : "*",
     "backbone": "*",
+    "handlebars": "*",
     "backbone-tastypie": "*",
     "gmaps": "*",
     "moment" : "*",

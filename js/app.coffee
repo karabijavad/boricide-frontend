@@ -9,7 +9,7 @@ class VenueModel extends Backbone.Model
     })
     @concerts = []
   updateInfoWindow: () ->
-    @marker.infoWindow.setContent(concert_template({concerts: @concerts}))
+    @marker.infoWindow.setContent concert_template({concerts: @concerts})
 
 class VenueCollection extends Backbone.Collection
   model: VenueModel

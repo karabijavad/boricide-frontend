@@ -9,7 +9,7 @@ concert_template = Handlebars.compile("
   <br/>
     <ul class='artists-list'>
     {{#each attributes.artists}}
-      <li>{{name}}</li>
+      <li>{{#if website}}<a href='{{website}}'>{{/if}}{{name}}{{#if website}}</a>{{/if}}</li>
     {{/each}}
     </ul>
   <span class='concert-description'>{{attributes.description}}</span>

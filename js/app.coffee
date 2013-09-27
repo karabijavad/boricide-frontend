@@ -1,5 +1,4 @@
 api_url = "http://showshows.net"
-concert_options = {}
 
 class VenueModel extends Backbone.Model
   initialize: () ->
@@ -31,18 +30,17 @@ class ConcertCollection extends Backbone.Collection
 concerts = new ConcertCollection()
 venues = new VenueCollection()
 
-pull_concerts = () ->
+pull_concerts = (options) ->
   while (model = venues.first())
     venues.remove(model)
   map.removeMarkers()
 
   concerts.fetch({
-    data: concert_options,
+    data: options,
     success: () ->
       venues.each (venue) ->
         venue.updateInfoWindow()
   })
-
 
 $(document).ready () ->
   window.map = new GMaps({

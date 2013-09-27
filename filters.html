@@ -29,15 +29,16 @@
 $('#reportrange').daterangepicker(
     {
       ranges: {
-         'Today': [moment(), moment()],
-         'Tomorrow': [moment().add('days', 1), moment().add('days', 1)],
-         'This week': [moment(), moment().add('days', 7)],
+         'Today': [moment().startOf("day"), moment().endOf("day")],
+         'Tomorrow': [moment().add('days', 1).startOf("day"), moment().add('days', 1).endOf("day")],
       },
-      startDate: moment(),
-      endDate: moment()
+      startDate: moment().startOf("day"),
+      endDate: moment().endOf("day")
     },
     function(start, end) {
-        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+        $('#reportrange span').html(start.format('MMMM D') + ' - ' + end.format('MMMM D'));
+        console.log(start)
+        console.log(end)
     }
 );
 </script>

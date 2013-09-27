@@ -5,7 +5,7 @@ Handlebars.registerHelper('momentCalendar', (context, block) ->
 concert_template = Handlebars.compile("
 {{#each concerts}}
 <div class='concert-info'>
-  <span class='time'>Starting {{momentCalendar attributes.start_time}}</span>
+  <span class='time'>{{momentCalendar attributes.start_time}}</span>
   <br/>
     <ul class='artists-list'>
     {{#each attributes.artists}}

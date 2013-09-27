@@ -26,9 +26,17 @@
 </div>
  
 <script type="text/javascript">
+var options = {};
+
 function update_concerts() {
-  pull_concerts();
+  pull_concerts(
+    {
+      "start_time__gte": options.start_time.toISOString(),
+      "end_time__lte": options.end_time.toISOString(),
+    }
+  );
 }
+
 $('#reportrange').daterangepicker(
     {
       ranges: {
@@ -40,6 +48,8 @@ $('#reportrange').daterangepicker(
     },
     function(start, end) {
         $('#reportrange span').html(start.format('MMMM D') + ' - ' + end.format('MMMM D'));
+        options.start_time = start;
+        options.end_time = end;
         update_concerts();
     }
 );

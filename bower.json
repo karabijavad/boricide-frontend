@@ -23,7 +23,8 @@
     "moment" : "*",
     "bootstrap": "*",
     "bootstrap-modal": "*",
-    "bootstrap-datetimepicker" : "*"
+    "bootstrap-datetimepicker" : "*",
+    "bootstrap-daterangepicker" : "*"
   }
 
 }

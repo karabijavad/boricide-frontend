@@ -68,7 +68,6 @@ $(document).ready () ->
         )
         $modal.on('click', '.update', () ->
           pull_concerts()
-          $modal.find('.modal-body').prepend('<div class="alert alert-info fade in">' + 'Updated!<button type="button" class="close" data-dismiss="alert">&times;</button>' + '</div>')
         )
         $modal.on('click', '.btn-primary', () ->
           $modal.close()

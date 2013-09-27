@@ -1,4 +1,5 @@
 api_url = "http://showshows.net"
+concert_options = {}
 
 class VenueModel extends Backbone.Model
   initialize: () ->
@@ -30,6 +31,19 @@ class ConcertCollection extends Backbone.Collection
 concerts = new ConcertCollection()
 venues = new VenueCollection()
 
+pull_concerts = () ->
+  while (model = venues.first())
+    venues.remove(model)
+  map.removeMarkers()
+
+  concerts.fetch({
+    data: concert_options,
+    success: () ->
+      venues.each (venue) ->
+        venue.updateInfoWindow()
+  })
+
+
 $(document).ready () ->
   window.map = new GMaps({
     div: '#map',
@@ -37,11 +51,7 @@ $(document).ready () ->
     lng: -87.694332,
     zoom: 12
   })
-  concerts.fetch({
-    success: () ->
-      venues.each (venue) ->
-        venue.updateInfoWindow()
-  })
+  pull_concerts({})
   map.addControl({
     position: 'right_top',
     content: 'Filters',
@@ -59,6 +69,7 @@ $(document).ready () ->
           $modal.modal()
         )
         $modal.on('click', '.update', () ->
+          pull_concerts()
           $modal.find('.modal-body').prepend('<div class="alert alert-info fade in">' + 'Updated!<button type="button" class="close" data-dismiss="alert">&times;</button>' + '</div>')
         )
         $modal.on('click', '.btn-primary', () ->

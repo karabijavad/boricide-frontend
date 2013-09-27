@@ -10,23 +10,9 @@
   <div class="tab-content">
     <div class="tab-pane active" id="tab1">
     <p>
-      <div class="well">
-        Start time<div id="datetimepicker-start" class="input-append">
-          <input data-format="MM/dd/yyyy HH:mm:ss PP" type="text"></input>
-          <span class="add-on">
-            <i data-time-icon="icon-time" data-date-icon="icon-calendar">
-            </i>
-          </span>
-        </div>
-      </div>
-      <div class="well">
-        End time<div id="datetimepicker-end" class="input-append">
-          <input data-format="MM/dd/yyyy HH:mm:ss PP" type="text"></input>
-          <span class="add-on">
-            <i data-time-icon="icon-time" data-date-icon="icon-calendar">
-            </i>
-          </span>
-        </div>
+      <div id="reportrange">
+          <i class="icon-calendar icon-large"></i>
+          <span></span> <b class="caret"></b>
       </div>
     </p>
     </div>
@@ -38,18 +24,20 @@
   <button type="button" data-dismiss="modal" class="btn">Close</button>
   <button type="button" class="btn btn-primary">Ok</button>
 </div>
-
-<script>
-  $(function() {
-    $('#datetimepicker-start').datetimepicker({
-      language: 'en',
-      pick12HourFormat: true
-    });
-  });
-  $(function() {
-    $('#datetimepicker-end').datetimepicker({
-      language: 'en',
-      pick12HourFormat: true
-    });
-  });
+ 
+<script type="text/javascript">
+$('#reportrange').daterangepicker(
+    {
+      ranges: {
+         'Today': [moment(), moment()],
+         'Tomorrow': [moment().add('days', 1), moment().add('days', 1)],
+         'This week': [moment(), moment().add('days', 7)],
+      },
+      startDate: moment(),
+      endDate: moment()
+    },
+    function(start, end) {
+        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+    }
+);
 </script>

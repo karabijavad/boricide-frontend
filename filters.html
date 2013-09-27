@@ -26,6 +26,9 @@
 </div>
  
 <script type="text/javascript">
+function update_concerts() {
+  pull_concerts();
+}
 $('#reportrange').daterangepicker(
     {
       ranges: {
@@ -37,8 +40,7 @@ $('#reportrange').daterangepicker(
     },
     function(start, end) {
         $('#reportrange span').html(start.format('MMMM D') + ' - ' + end.format('MMMM D'));
-        console.log(start)
-        console.log(end)
+        update_concerts();
     }
 );
 </script>

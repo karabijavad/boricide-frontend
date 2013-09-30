@@ -21,7 +21,7 @@ concert_template = Handlebars.compile("
       <td class='time'>{{momentCalendar attributes.start_time}}</td>
       <td class='artists-list'>
         {{#foreach attributes.artists}}
-            <span class='artist btn' data-website='{{website}}'>{{name}}</span>
+            <span class='artist btn' data-id='{{id}}'>{{name}}</span>
         {{/foreach}}
       </td>
       <td>${{attributes.door_price}}</td>
@@ -29,3 +29,10 @@ concert_template = Handlebars.compile("
   {{/each}}
 </table>
 ")
+
+$(document).on 'click', '.concert-info .artists-list .artist', (e) ->
+  $modal = $('#ajax-modal');
+  $('body').modalmanager('loading');
+  $modal.load('/artist-info.html?artist_id=' + $(this).attr('data-id'), '', () ->
+    $modal.modal()
+  )

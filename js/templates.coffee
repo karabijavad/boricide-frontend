@@ -15,7 +15,7 @@ Handlebars.registerHelper("foreach", (arr,options) ->
 )
 
 concert_template = Handlebars.compile("
-<table class='concert-list'>
+<table class='concert-list table table-hover'>
 {{#each concerts}}
   <tr class='concert-info'>
     <td class='time'>{{momentCalendar attributes.start_time}}</td>

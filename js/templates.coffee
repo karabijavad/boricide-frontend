@@ -31,8 +31,7 @@ concert_template = Handlebars.compile("
 ")
 
 $(document).on 'click', '.concert-info .artists-list .artist', (e) ->
-  $modal = $('#ajax-modal');
-  $('body').modalmanager('loading');
-  $modal.load('/artist-info.html?artist_id=' + $(this).attr('data-id'), '', () ->
+  $modal = $('#ajax-modal')
+  $('body').modalmanager('loading')
+  $modal.load '/artist-info.html', '', () ->
     $modal.modal()
-  )

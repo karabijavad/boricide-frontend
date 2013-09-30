@@ -1,21 +1,5 @@
-
 #map img {
   max-width: none;
   width: auto; 
   display:inline;
 }
-
-.artists-list {
-  list-style-type: none;
-}
-.artists-list > li {
-  font-style: italic;
-  font-weight: bold;
-}
-.artists-list > li > a:link {
-  font-weight: bold;
-}
-.artists-list > li > a:hover {
-  text-decoration: none;
-}
-

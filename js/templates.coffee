@@ -16,23 +16,16 @@ Handlebars.registerHelper("foreach", (arr,options) ->
 
 concert_template = Handlebars.compile("
 <table class='concert-list table table-hover'>
-{{#each concerts}}
-  <tr class='concert-info'>
-    <td class='time'>{{momentCalendar attributes.start_time}}</td>
-
-    <td class='artists-list'>
-      {{#foreach attributes.artists}}
-          {{#if website}}<a href='{{website}}'>{{/if}}
-            <span class='artist-name'>{{name}}{{#unless $last}}, {{/unless}}
-          {{#if website}}</a>{{/if}}
-            </span>
-      {{/foreach}}
-    </td>
-    <td>
-    ${{attributes.door_price}}
-    </td>
-
-  </tr>
-{{/each}}
+  {{#each concerts}}
+    <tr class='concert-info'>
+      <td class='time'>{{momentCalendar attributes.start_time}}</td>
+      <td class='artists-list'>
+        {{#foreach attributes.artists}}
+            <span class='artist btn' data-website='{{website}}'>{{name}}</span>
+        {{/foreach}}
+      </td>
+      <td>${{attributes.door_price}}</td>
+    </tr>
+  {{/each}}
 </table>
 ")

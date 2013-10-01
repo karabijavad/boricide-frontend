@@ -23,5 +23,29 @@
 <body>
     <div id="ajax-modal" class="modal hide fade" tabindex="-1"></div>
     <div id="map" style="width: 100%; height:100%; float:left" ></div>
-    <div id="filters" style="display:none;"></div>
+    <div id="filters" style="float:right;">
+        <div id="reportrange" >
+            <i class="icon-calendar icon-large"></i>
+            <span></span><b class="caret"></b>
+        </div>
+        <script type="text/javascript">
+        $('#reportrange').daterangepicker(
+            {
+              ranges: {
+                 'Today': [moment(), moment()],
+                 'Yesterday': [moment().subtract('days', 1), moment().subtract('days', 1)],
+                 'Last 7 Days': [moment().subtract('days', 6), moment()],
+                 'Last 30 Days': [moment().subtract('days', 29), moment()],
+                 'This Month': [moment().startOf('month'), moment().endOf('month')],
+                 'Last Month': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
+              },
+              startDate: moment().subtract('days', 29),
+              endDate: moment()
+            },
+            function(start, end) {
+                $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+            }
+        );
+        </script>
+    </div>
 </body>

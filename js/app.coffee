@@ -62,8 +62,10 @@ $(document).ready () ->
     events: {
       click: () ->
         if $("#map").width() == $(window).width()
-          $("#map").animate({"width": "80%"})
+          $("#map").animate({"width": "75%"})
+          $("#filters").animate({"width": "25%"})
         else
           $("#map").animate({"width": "100%"})
+          $("#filters").animate({"width": "0%"})
     }
   })

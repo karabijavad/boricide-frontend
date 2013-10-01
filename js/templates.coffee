@@ -33,5 +33,8 @@ concert_template = Handlebars.compile("
 $(document).on 'click', '.concert-info .artists-list .artist', (e) ->
   $modal = $('#ajax-modal')
   $('body').modalmanager('loading')
-  $modal.load '/artist-info.html', '', () ->
-    $modal.modal()
+  $.getJSON "#{api_url}/api/v1/artist/#{$(this).attr('data-id')}/", (artist_data) ->
+    $modal.load '/artist-info.html', '', () ->
+      console.log(artist_data)
+      $modal.find("#artist-name").text(artist_data['name'])
+      $modal.modal()

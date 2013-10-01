@@ -12,7 +12,7 @@
     <p>
       <div id="reportrange">
           <i class="icon-calendar icon-large"></i>
-          <span></span> <b class="caret"></b>
+          <span>Click here to select a date range</span> <b class="caret"></b>
       </div>
     </p>
     </div>
@@ -44,7 +44,7 @@ $('#reportrange').daterangepicker(
          'Tomorrow': [moment().add('days', 1).startOf("day"), moment().add('days', 1).endOf("day")],
       },
       startDate: moment().startOf("day"),
-      endDate: moment().endOf("day")
+      endDate: moment().add('days', 1).endOf("day")
     },
     function(start, end) {
         $('#reportrange span').html(start.format('MMMM D') + ' - ' + end.format('MMMM D'));

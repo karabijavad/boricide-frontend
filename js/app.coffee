@@ -61,14 +61,5 @@ $(document).ready () ->
     },
     events: {
       click: () ->
-        $modal = $('#ajax-modal')
-        $('body').modalmanager('loading')
-        $modal.load '/filters.html', '', () ->
-          $modal.modal()
-        $modal.on 'click', '.update', () ->
-          pull_concerts()
-        $modal.on 'click', '.btn-primary', () ->
-          $modal.close()
     }
   })
-

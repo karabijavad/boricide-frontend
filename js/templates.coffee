@@ -31,9 +31,12 @@ concert_template = Handlebars.compile("
 ")
 
 artist_info_template = Handlebars.compile("
-{{name}}<br/>
-{{#if website}}
-  <a href='{{website}}'>{{website}}</a>
+<div class='page-header'>
+  <h1>{{name}} <small>{{#if website}}<a href='{{website}}'>{{website}}</a><br/>{{/if}}</small></h1>
+</div>
+<br/>
+{{#if description}}
+  {{description}}<br/>
 {{/if}}
 ")
 

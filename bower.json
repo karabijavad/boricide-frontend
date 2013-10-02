@@ -24,7 +24,8 @@
     "bootstrap": "*",
     "bootstrap-modal": "*",
     "bootstrap-datetimepicker" : "*",
-    "bootstrap-daterangepicker" : "*"
+    "bootstrap-daterangepicker" : "*",
+    "jquery-ui": "*"
   }
 
 }

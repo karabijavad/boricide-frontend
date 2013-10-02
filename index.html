@@ -46,8 +46,7 @@ $('#reportrange').daterangepicker(
       },
     },
     function(start, end) {
-        console.log(start.toISOString());
-        console.log(end.toISOString());
+       $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
     }
 );
 

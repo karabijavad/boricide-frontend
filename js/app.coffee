@@ -49,6 +49,9 @@ $(document).ready () ->
     lng: -87.694332,
     zoom: 12
   })
+  if navigator.geolocation
+    navigator.geolocation.getCurrentPosition (position) ->
+      map.setCenter(position.coords.latitude, position.coords.longitude)
   pull_concerts({})
   map.addControl({
     position: 'right_top',

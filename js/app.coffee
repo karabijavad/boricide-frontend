@@ -31,6 +31,8 @@ concerts = new ConcertCollection()
 venues = new VenueCollection()
 
 pull_concerts = (options) ->
+  $('body').modalmanager('loading')
+
   while (model = venues.first())
     venues.remove(model)
   map.removeMarkers()
@@ -73,8 +75,6 @@ $(document).ready () ->
   })
   pull_concerts({})
 
-
-$(document).ready () ->
   $('#reportrange').daterangepicker(
       {
         timePicker: true,
@@ -89,12 +89,14 @@ $(document).ready () ->
          $('#end_time').text(end.toISOString())
   );
 
-$(document).ready () ->
   $("#filters_submit").click () ->
     options = {}
     if $('#start_time').text()
       options["start_time__gte"] = $('#start_time').text()
     if $('#end_time').text()
       options["start_time__lte"] = $('#end_time').text()
+    if $('#max_cost').val()
+      options["door_price__lte"] = $('#max_cost').val()
+      options["advance_price__lte"] = $('#max_cost').val()
 
     pull_concerts(options)

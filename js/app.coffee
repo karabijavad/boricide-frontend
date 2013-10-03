@@ -85,5 +85,16 @@ $(document).ready () ->
       },
       (start, end) ->
          $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+         $('#start_time').text(start.toISOString())
+         $('#end_time').text(end.toISOString())
   );
 
+$(document).ready () ->
+  $("#filters_submit").click () ->
+    options = {}
+    if $('#start_time').text()
+      options["start_time__gte"] = $('#start_time').text()
+    if $('#end_time').text()
+      options["start_time__lte"] = $('#end_time').text()
+
+    pull_concerts(options)

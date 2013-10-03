@@ -52,7 +52,6 @@ $(document).ready () ->
   if navigator.geolocation
     navigator.geolocation.getCurrentPosition (position) ->
       map.setCenter(position.coords.latitude, position.coords.longitude)
-  pull_concerts({})
   map.addControl({
     position: 'right_top',
     content: 'Filters',
@@ -72,3 +71,19 @@ $(document).ready () ->
           $("#sidebar").hide().animate({"width": "0%"}, 150 )
     }
   })
+  pull_concerts({})
+
+
+$(document).ready () ->
+  $('#reportrange').daterangepicker(
+      {
+        timePicker: true,
+        ranges: {
+           'Today': [moment().startOf('day'), moment().endOf('day')],
+           'This coming week': [moment().startOf('day'), moment().add('days', 7).endOf('day')],
+        },
+      },
+      (start, end) ->
+         $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+  );
+

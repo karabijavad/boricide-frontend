@@ -42,6 +42,7 @@ pull_concerts = (options) ->
     success: () ->
       venues.each (venue) ->
         venue.updateInfoWindow()
+      $('.modal-scrollable').trigger('click')
   })
 
 $(document).ready () ->

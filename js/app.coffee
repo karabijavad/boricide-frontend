@@ -24,7 +24,7 @@ class ConcertModel extends Backbone.Model
 
 class ConcertCollection extends Backbone.Collection
   url: () ->
-    return api_url + "/api/v1/concert/"
+    return "#{api_url}/api/v1/concert/"
   model: ConcertModel
 
 concerts = new ConcertCollection()
@@ -91,9 +91,8 @@ $(document).ready () ->
   );
 
   $('#artist_name').typeahead({
-    preFetch: true,
     source: (query, process) ->
-        return $.get api_url + '/api/v1/artist/', { "name__icontains": query }, (data) ->
+        return $.get '#{api_url}/api/v1/artist/', { "name__icontains": query }, (data) ->
           options = []
           for artist in data.objects
             options.push(artist["name"])

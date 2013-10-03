@@ -90,6 +90,16 @@ $(document).ready () ->
          $('#end_time').text(end.toISOString())
   );
 
+  $('#artist_name').typeahead({
+    preFetch: true,
+    source: (query, process) ->
+        return $.get api_url + '/api/v1/artist/', { "name__icontains": query }, (data) ->
+          options = []
+          for artist in data.objects
+            options.push(artist["name"])
+          return process(options);
+  })
+
   $("#filters_submit").click () ->
     options = {}
     if $('#start_time').text()

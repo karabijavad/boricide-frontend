@@ -3,7 +3,7 @@ venue_map = {}
 $("#venue_text").typeahead({
   source: (query, process) ->
     options = []
-    $.get "#{api_url}/api/v1/venue/", { "name__icontains": query }, (data) ->
+    $.get "#{api_url}/api/v1/venue/", { "name__icontains": query, "username": username, "api_key": apikey }, (data) ->
       for venue in data.objects
         venue_map[venue["name"]] = venue["id"]
         options.push(venue["name"])
@@ -25,7 +25,7 @@ artist_map = {}
 $("#artist_text").typeahead({
   source: (query, process) ->
     options = []
-    $.get "#{api_url}/api/v1/artist/", {"name__icontains": query}, (data) ->
+    $.get "#{api_url}/api/v1/artist/", {"name__icontains": query, "username": username, "api_key": apikey}, (data) ->
       for artist in data.objects
         artist_map[artist["name"]] = artist["id"]
         options.push(artist["name"])

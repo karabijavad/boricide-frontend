@@ -49,6 +49,6 @@ add_show_template = Handlebars.compile("
 $(document).on 'click', '.concert-info .artists-list .artist', (e) ->
   $modal = $('#ajax-modal')
   $('body').modalmanager('loading')
-  $.getJSON "#{api_url}/api/v1/artist/#{$(this).attr('data-id')}/", (artist_data) ->
+  $.getJSON "#{api_url}/api/v1/artist/#{$(this).attr('data-id')}/?username=#{username}&api_key=#{apikey}", (artist_data) ->
     $modal.html(artist_info_template(artist_data))
     $modal.modal()

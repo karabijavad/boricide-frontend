@@ -1,6 +1,8 @@
 api_url = "http://showshows.net"
-Backbone.Tastypie.apiKey["username"] = "guest"
-Backbone.Tastypie.apiKey["key"] = "d9f3100bb2563e9511032bdec01c6d42f8691013"
+username = "guest"
+apikey = "d9f3100bb2563e9511032bdec01c6d42f8691013"
+Backbone.Tastypie.apiKey["username"] = username
+Backbone.Tastypie.apiKey["key"] = apikey
 
 class VenueModel extends Backbone.Model
   url: () ->
@@ -21,6 +23,8 @@ class VenueCollection extends Backbone.Collection
   model: VenueModel
 
 class ConcertModel extends Backbone.Model
+  url: () ->
+    return "#{api_url}#{@id}"
   initialize: () ->
     @venue = venues.findWhere @attributes.venue
     if not @venue

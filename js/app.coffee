@@ -1,4 +1,6 @@
 api_url = "http://showshows.net"
+Backbone.Tastypie.apiKey["username"] = "guest"
+Backbone.Tastypie.apiKey["key"] = "d9f3100bb2563e9511032bdec01c6d42f8691013"
 
 class VenueModel extends Backbone.Model
   initialize: () ->

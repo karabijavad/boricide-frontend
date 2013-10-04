@@ -85,9 +85,10 @@ $(document).ready () ->
     },
     events: {
       click: () ->
+        $('body').modalmanager('loading')
         $modal = $('#ajax-modal')
-        $modal.html(add_show_template({}))
-        $modal.modal()
+        $modal.load '/add_show.html', '', () ->
+          $modal.modal()
     }
   })
   pull_concerts({})

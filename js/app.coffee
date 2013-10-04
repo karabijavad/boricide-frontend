@@ -74,6 +74,22 @@ $(document).ready () ->
           $("#sidebar").hide().animate({"width": "0%"}, 150 )
     }
   })
+  map.addControl({
+    position: 'top_left',
+    content: 'Add a show',
+    style: {
+      margin: '5px',
+      padding: '1px 6px',
+      border: 'solid 1px #717B87',
+      background: '#fff'
+    },
+    events: {
+      click: () ->
+        $modal = $('#ajax-modal')
+        $modal.html(add_show_template({}))
+        $modal.modal()
+    }
+  })
   pull_concerts({})
 
   $('#reportrange').daterangepicker(

@@ -38,3 +38,14 @@ $("#artist_text").typeahead({
         .click () -> $(this).remove()
     return ''
 })
+
+$('#newshow_daterange').daterangepicker(
+    {
+      timePicker: true,
+      ranges: {},
+    },
+    (start, end) ->
+       $('#newshow_daterange').html(start.fromNow() + ' - ' + end.fromNow());
+       $('#newshow_start_time').text(start.toISOString())
+       $('#newshow_end_time').text(end.toISOString())
+);

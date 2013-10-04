@@ -44,6 +44,5 @@ $(document).on 'click', '.concert-info .artists-list .artist', (e) ->
   $modal = $('#ajax-modal')
   $('body').modalmanager('loading')
   $.getJSON "#{api_url}/api/v1/artist/#{$(this).attr('data-id')}/", (artist_data) ->
-    $modal.load '/artist-info.html', '', () ->
-      $modal.find("#artist-info").html(artist_info_template(artist_data))
-      $modal.modal()
+    $modal.html(artist_info_template(artist_data))
+    $modal.modal()

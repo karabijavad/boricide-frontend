@@ -19,3 +19,22 @@ $("#venue_text").typeahead({
         $("#venue_text").val(venue_name).show()
       .show()
 })
+
+artist_map = {}
+
+$("#artist_text").typeahead({
+  source: (query, process) ->
+    options = []
+    $.get "#{api_url}/api/v1/artist/", {"name__icontains": query}, (data) ->
+      for artist in data.objects
+        artist_map[artist["name"]] = artist["id"]
+        options.push(artist["name"])
+      return process(options)
+  updater: (artist_name) ->
+    artist_id = artist_map[artist_name]
+    if not $("#artists_selected > [data-id=#{artist_id}]").length
+      $("<span class='btn btn-large' data-id='#{artist_id}'>#{artist_name}</span>")
+        .appendTo("#artists_selected")
+        .click () -> $(this).remove()
+    return ''
+})

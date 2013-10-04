@@ -4,6 +4,15 @@ apikey = "d9f3100bb2563e9511032bdec01c6d42f8691013"
 Backbone.Tastypie.apiKey["username"] = username
 Backbone.Tastypie.apiKey["key"] = apikey
 
+class ArtistModel extends Backbone.Model
+  url: () ->
+    return "#{api_url}#{@id}"
+
+class ArtistCollection extends Backbone.Collection
+  url: () ->
+    return "#{api_url}/api/v1/artist/"
+  model: ArtistModel
+
 class VenueModel extends Backbone.Model
   url: () ->
     return "#{api_url}#{@id}"
@@ -39,6 +48,7 @@ class ConcertCollection extends Backbone.Collection
 
 concerts = new ConcertCollection()
 venues = new VenueCollection()
+artists = new ArtistCollection()
 
 pull_concerts = (options) ->
   $('body').modalmanager('loading')

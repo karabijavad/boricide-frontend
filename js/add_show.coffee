@@ -52,21 +52,31 @@ $('#newshow_daterange').daterangepicker(
 );
 
 $("#newshow_submit").click () ->
-  venue_id = $("#venue_selected").attr("data-id")
-  artists = []
-  for el in $("#artists_selected > span")
-    artists.push $(el).attr("data-id")
+  venue_collection = new VenueCollection()
+  artists_collection = new ArtistCollection()
+  artists_ids = []
+  for artist in $("#artists_selected > span")
+    artists_ids.push $(artist).attr('data-id')
+  $.when(
+    artists_collection.fetch({
+      data:
+        'id__in': artists_ids.join(',')
+    }),
+    venue_collection.fetch({
+      data:
+        'id': parseInt($("#venue_selected").attr("data-id"))
+    })
+  ).done () ->
+    artists = []
+    for artist in artists_collection
+      artists.push artist.attributes
+    new_concert = new ConcertModel(
+      {
+        venue: venue_collection.models[0].attributes
+        artists: artists
+      }
+    )
+
+
   start_time = $("#newshow_start_time").text()
   end_time = $("#newshow_end_time").text()
-
-  new_concert = {
-    venue: venue_id,
-    start_time: start_time,
-    end_time: end_time
-  }
-  console.log(new_concert)
-  $.ajax({
-    type: "POST",
-    url: "#{api_url}/api/v1/concert/",
-    data: new_concert
-  });

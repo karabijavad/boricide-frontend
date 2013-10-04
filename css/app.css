@@ -18,7 +18,7 @@
   height: 90%;
 }
 
-#max_cost, #artist_name {
+#max_cost, #artist_name, #venue_text, #artist_text {
   height: 2em;
   width: 8em;
 }

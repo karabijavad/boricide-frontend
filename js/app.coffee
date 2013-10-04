@@ -148,7 +148,7 @@ $(document).ready () ->
     if $('#max_cost').val()
       options["door_price__lte"] = $('#max_cost').val()
       options["advance_price__lte"] = $('#max_cost').val()
-    if $('#artist_name').val()
-      options["artists__name__icontains"] = $('#artist_name').val()
+    if $('#filters_selected_artist').attr('data-id')
+      options["artists__id"] = $('#filters_selected_artist').attr('data-id')
 
     pull_concerts(options)

@@ -18,7 +18,7 @@
   height: 90%;
 }
 
-#max_cost {
+#max_cost, #artist_name {
   height: 2em;
-  width: 6em;
+  width: 8em;
 }

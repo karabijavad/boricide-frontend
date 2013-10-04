@@ -24,8 +24,8 @@
     <div id="ajax-modal" class="modal hide fade" tabindex="-1"></div>
     <div id="map"></div>
     <div id="sidebar" style="float:right; display:none;">
-      <div id="filters">
-        <div class="well">
+      <div id="filters" style="padding:30px;">
+        <div class='clearfix' style='padding:15px;'>
             <div id="reportrange" class="pull-right">
                 <i class="icon-calendar icon-large"></i>
                 <span>Select date range here</span><b class="caret"></b>
@@ -33,14 +33,16 @@
                 <input type="hidden" id="end_time" name="end_time"/>
             </div>
         </div>
-        <div class="well">
+        <div class='clearfix' style='padding:15px;'>
             <input type="text" id="max_cost" class="input-large pull-right" placeholder="Max cost" />
         </div>
-        <div class="well">
+        <div class='clearfix' style='padding:15px;'>
             <input type="text" id="artist_name" class="input-large pull-right" placeholder="Artist Name" />
             <span id="filters_selected_artist" style="display:none;" class='btn btn-success btn-lg pull-right'></span>
         </div>
-      <button id="filters_submit" class="btn btn-primary pull-right">Submit</button>
+        <div class='clearfix' style='padding:15px;'>
+            <button id="filters_submit" class="btn btn-primary pull-right">Submit</button>
+        </div>
       </div>
     </div>
 </body>

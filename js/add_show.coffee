@@ -59,24 +59,25 @@ $("#newshow_submit").click () ->
     artists_ids.push $(artist).attr('data-id')
   $.when(
     artists_collection.fetch({
-      data:
-        'id__in': artists_ids.join(',')
+      url: "#{artists_collection.url()}?id__in=#{artists_ids.join(',')}"
     }),
     venue_collection.fetch({
       data:
         'id': parseInt($("#venue_selected").attr("data-id"))
     })
   ).done () ->
+    window.dbg = artists_collection
     artists = []
-    for artist in artists_collection
+    artists_collection.each (artist) ->
       artists.push artist.attributes
     new_concert = new ConcertModel(
       {
+        start_time: $("#newshow_start_time").text()
+        end_time: $("#newshow_end_time").text()
         venue: venue_collection.models[0].attributes
         artists: artists
+        door_price: $("#newshow_doorprice").val()
       }
     )
-
-
-  start_time = $("#newshow_start_time").text()
-  end_time = $("#newshow_end_time").text()
+    new_concert.url = "#{api_url}/api/v1/concert/"
+    new_concert.save()

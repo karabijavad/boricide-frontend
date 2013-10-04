@@ -52,6 +52,7 @@ $('#newshow_daterange').daterangepicker(
 );
 
 $("#newshow_submit").click () ->
+  $("#newshow_loading").css("visibility", "visible")
   venue_collection = new VenueCollection()
   artists_collection = new ArtistCollection()
   artists_ids = []
@@ -82,4 +83,7 @@ $("#newshow_submit").click () ->
       }
     )
     new_concert.url = "#{api_url}/api/v1/concert/"
-    new_concert.save()
+    new_concert.save(null,{
+      success: () ->
+        $("#newshow_loading").css("visibility", "hidden")
+    })

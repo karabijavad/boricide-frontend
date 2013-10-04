@@ -18,7 +18,12 @@
   height: 90%;
 }
 
-#max_cost, #artist_name, #venue_text, #artist_text, #newshow_doorprice {
+#max_cost, #artist_name, #venue_text, #artist_text, #newshow_doorprice, #newshow_title {
   height: 2em;
   width: 8em;
+}
+
+#newshow_description {
+  height: 5em;
+  width: 20em;
 }

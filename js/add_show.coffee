@@ -72,6 +72,8 @@ $("#newshow_submit").click () ->
       artists.push artist.attributes
     new_concert = new ConcertModel(
       {
+        name: $("#newshow_title").val()
+        description: $("#newshow_description").val()
         start_time: $("#newshow_start_time").text()
         end_time: $("#newshow_end_time").text()
         venue: venue_collection.models[0].attributes

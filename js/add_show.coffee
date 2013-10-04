@@ -33,7 +33,7 @@ $("#artist_text").typeahead({
   updater: (artist_name) ->
     artist_id = artist_map[artist_name]
     if not $("#artists_selected > [data-id=#{artist_id}]").length
-      $("<span class='btn btn-large' data-id='#{artist_id}'>#{artist_name}</span>")
+      $("<span class='btn btn-success btn-lg' data-id='#{artist_id}'>#{artist_name}</span>")
         .appendTo("#artists_selected")
         .click () -> $(this).remove()
     return ''
@@ -45,6 +45,7 @@ $('#newshow_daterange').daterangepicker(
       ranges: {},
     },
     (start, end) ->
+       $('#newshow_daterange').addClass("btn-success")
        $('#newshow_daterange').html(start.fromNow() + ' - ' + end.fromNow());
        $('#newshow_start_time').text(start.toISOString())
        $('#newshow_end_time').text(end.toISOString())

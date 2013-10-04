@@ -4,7 +4,7 @@
   </div>
   <div style="padding:10px;">
     <input type="text" id="venue_text" placeholder="Venue name"/>
-    <span class='btn btn-primary btn-lg' id='venue_selected' style="display:none;"/>
+    <span class='btn btn-success btn-lg' id='venue_selected' style="display:none;"/>
   </div>
   <div style="padding:10px;">
     <span class="btn btn-large" id="newshow_daterange">Select start/end time</span>
@@ -12,8 +12,11 @@
     <input type="hidden" id="newshow_end_time"/>
   </div>
   <div style="padding:10px;">
+    <div id="artists_selected" style="padding-bottom:10px;"/>
     <input type="text" id="artist_text" placeholder="Artist name"/>
-    <div id="artists_selected" />
+  </div>
+  <div style="padding:10px;">
+    <span class='btn btn-large btn-primary' id='newshow_submit'>Submit</span>
   </div>
 </div>
 <script src="/js/add_show.js"></script>

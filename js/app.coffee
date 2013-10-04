@@ -3,6 +3,8 @@ Backbone.Tastypie.apiKey["username"] = "guest"
 Backbone.Tastypie.apiKey["key"] = "d9f3100bb2563e9511032bdec01c6d42f8691013"
 
 class VenueModel extends Backbone.Model
+  url: () ->
+    return "#{api_url}#{@id}"
   initialize: () ->
     @marker = window.map.addMarker({
         lat: @attributes.lat,
@@ -14,6 +16,8 @@ class VenueModel extends Backbone.Model
     @marker.infoWindow.setContent concert_template({concerts: @concerts})
 
 class VenueCollection extends Backbone.Collection
+  url: () ->
+    return "#{api_url}/api/v1/venue/"
   model: VenueModel
 
 class ConcertModel extends Backbone.Model

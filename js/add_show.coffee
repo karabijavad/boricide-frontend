@@ -50,3 +50,23 @@ $('#newshow_daterange').daterangepicker(
        $('#newshow_start_time').text(start.toISOString())
        $('#newshow_end_time').text(end.toISOString())
 );
+
+$("#newshow_submit").click () ->
+  venue_id = $("#venue_selected").attr("data-id")
+  artists = []
+  for el in $("#artists_selected > span")
+    artists.push $(el).attr("data-id")
+  start_time = $("#newshow_start_time").text()
+  end_time = $("#newshow_end_time").text()
+
+  new_concert = {
+    venue: venue_id,
+    start_time: start_time,
+    end_time: end_time
+  }
+  console.log(new_concert)
+  $.ajax({
+    type: "POST",
+    url: "#{api_url}/api/v1/concert/",
+    data: new_concert
+  });

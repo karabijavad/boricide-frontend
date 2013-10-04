@@ -17,3 +17,8 @@
 #filters {
   height: 90%;
 }
+
+#max_cost {
+  height: 2em;
+  width: 6em;
+}

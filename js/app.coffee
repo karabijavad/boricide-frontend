@@ -117,13 +117,26 @@ $(document).ready () ->
          $('#end_time').text(end.toISOString())
   );
 
-  $('#artist_name').typeahead({
+  artist_map = {}
+  $("#artist_name").typeahead({
     source: (query, process) ->
-        return $.get "#{api_url}/api/v1/artist/", { "name__icontains": query }, (data) ->
-          options = []
-          for artist in data.objects
-            options.push(artist["name"])
-          return process(options);
+      options = []
+      $.get "#{api_url}/api/v1/artist/", {"name__icontains": query, "username": username, "api_key": apikey}, (data) ->
+        for artist in data.objects
+          artist_map[artist["name"]] = artist["id"]
+          options.push(artist["name"])
+        return process(options)
+    updater: (artist_name) ->
+      artist_id = artist_map[artist_name]
+      $("#artist_name").hide()
+      $("#filters_selected_artist")
+        .text(artist_name)
+        .attr('data-id',artist_id)
+        .click () ->
+          $("#filters_selected_artist").text('').attr('data-id','').hide()
+          $("#artist_name").val('').show()
+        .show()
+      return ''
   })
 
   $("#filters_submit").click () ->

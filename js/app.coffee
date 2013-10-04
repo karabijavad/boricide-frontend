@@ -50,7 +50,18 @@ concerts = new ConcertCollection()
 venues = new VenueCollection()
 artists = new ArtistCollection()
 
-pull_concerts = (options) ->
+pull_concerts = () ->
+  options = {}
+  if $('#start_time').text()
+    options["start_time__gte"] = $('#start_time').text()
+  if $('#end_time').text()
+    options["start_time__lte"] = $('#end_time').text()
+  if $('#max_cost').val()
+    options["door_price__lte"] = $('#max_cost').val()
+    options["advance_price__lte"] = $('#max_cost').val()
+  if $('#filters_selected_artist').attr('data-id')
+    options["artists__id"] = $('#filters_selected_artist').attr('data-id')
+
   $('body').modalmanager('loading')
 
   while (model = venues.first())
@@ -111,7 +122,7 @@ $(document).ready () ->
           $modal.modal()
     }
   })
-  pull_concerts({})
+  pull_concerts()
 
   $('#reportrange').daterangepicker(
       {
@@ -150,15 +161,4 @@ $(document).ready () ->
   })
 
   $("#filters_submit").click () ->
-    options = {}
-    if $('#start_time').text()
-      options["start_time__gte"] = $('#start_time').text()
-    if $('#end_time').text()
-      options["start_time__lte"] = $('#end_time').text()
-    if $('#max_cost').val()
-      options["door_price__lte"] = $('#max_cost').val()
-      options["advance_price__lte"] = $('#max_cost').val()
-    if $('#filters_selected_artist').attr('data-id')
-      options["artists__id"] = $('#filters_selected_artist').attr('data-id')
-
-    pull_concerts(options)
+    pull_concerts()

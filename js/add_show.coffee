@@ -58,7 +58,7 @@ $('#newshow_daterange').daterangepicker(
       endDate: moment().add('days', 1).hour(2)
     },
     (start, end) ->
-       $('#newshow_daterange').addClass("btn-success")
+       $('#newshow_daterange').removeClass('btn-default').addClass("btn-success")
        $('#newshow_daterange').html(start.fromNow() + ' - ' + end.fromNow());
        $('#newshow_start_time').text(start.toISOString())
        $('#newshow_end_time').text(end.toISOString())
@@ -92,7 +92,7 @@ $("#newshow_submit").click () ->
         end_time: $("#newshow_end_time").text()
         venue: venue_collection.models[0].attributes
         artists: artists
-        door_price: $("#newshow_doorprice").val()
+        door_price: $("#newshow_doorprice_accepted").attr('data-doorprice')
       }
     )
     new_concert.url = "#{api_url}/api/v1/concert/"
@@ -106,3 +106,13 @@ $("#newshow_title").focusout () ->
   $("#newshow_title_accepted").text($("#newshow_title").val()).show().click () ->
     $("#newshow_title_accepted").hide()
     $("#newshow_title").show().focus()
+
+$("#newshow_doorprice").focusout () ->
+  $("#newshow_doorprice").hide()
+  $("#newshow_doorprice_accepted")
+    .text('$' + $("#newshow_doorprice").val())
+    .attr('data-doorprice', $("#newshow_doorprice").val())
+    .show()
+    .click () ->
+      $("#newshow_doorprice_accepted").hide()
+      $("#newshow_doorprice").show().focus()

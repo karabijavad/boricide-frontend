@@ -102,17 +102,19 @@ $("#newshow_submit").click () ->
     })
 
 $("#newshow_title").focusout () ->
-  $("#newshow_title").hide()
-  $("#newshow_title_accepted").text($("#newshow_title").val()).show().click () ->
-    $("#newshow_title_accepted").hide()
-    $("#newshow_title").show().focus()
+  if $("#newshow_title").val()
+    $("#newshow_title").hide()
+    $("#newshow_title_accepted").text($("#newshow_title").val()).show().click () ->
+      $("#newshow_title_accepted").hide()
+      $("#newshow_title").show().focus()
 
 $("#newshow_doorprice").focusout () ->
-  $("#newshow_doorprice").hide()
-  $("#newshow_doorprice_accepted")
-    .text('$' + $("#newshow_doorprice").val())
-    .attr('data-doorprice', $("#newshow_doorprice").val())
-    .show()
-    .click () ->
-      $("#newshow_doorprice_accepted").hide()
-      $("#newshow_doorprice").show().focus()
+  if $("#newshow_doorprice").val()
+    $("#newshow_doorprice").hide()
+    $("#newshow_doorprice_accepted")
+      .text('$' + $("#newshow_doorprice").val())
+      .attr('data-doorprice', $("#newshow_doorprice").val())
+      .show()
+      .click () ->
+        $("#newshow_doorprice_accepted").hide()
+        $("#newshow_doorprice").show().focus()

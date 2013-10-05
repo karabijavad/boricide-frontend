@@ -148,6 +148,8 @@ $(document).ready () ->
   $('#reportrange').daterangepicker(
       {
         timePicker: true,
+        startDate: moment(),
+        endDate: moment().add('days', 1).hour('2')
         ranges: {
            'Today': [moment().startOf('day'), moment().endOf('day')],
            'This coming week': [moment().startOf('day'), moment().add('days', 7).endOf('day')],

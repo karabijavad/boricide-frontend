@@ -15,6 +15,7 @@ Handlebars.registerHelper("foreach", (arr,options) ->
 )
 
 concert_template = Handlebars.compile("
+<h1>{{venue.attributes.name}}</h1>
 <table class='concert-list table table-hover'>
   {{#each concerts}}
     <tr class='concert-info'>

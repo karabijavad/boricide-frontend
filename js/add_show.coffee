@@ -16,7 +16,7 @@ $("#venue_text").typeahead({
       .attr("data-id", venue_id)
       .click () ->
         $("#venue_selected").text('').attr("data-id", '').hide()
-        $("#venue_text").val(venue_name).show()
+        $("#venue_text").val(venue_name).show().focus()
       .show()
 })
 

@@ -26,12 +26,24 @@ $("#artist_text").typeahead({
   source: (query, process) ->
     options = []
     $.get "#{api_url}/api/v1/artist/", {"name__icontains": query, "username": username, "api_key": apikey}, (data) ->
+      if not data.objects.length
+        return process([query])
       for artist in data.objects
         artist_map[artist["name"]] = artist["id"]
         options.push(artist["name"])
       return process(options)
   updater: (artist_name) ->
     artist_id = artist_map[artist_name]
+    if not artist_map[artist_name]
+      new_artist = new ArtistModel({name: artist_name})
+      new_artist.url = "#{api_url}/api/v1/artist/"
+      new_artist.save(null,{
+        success: (data) ->
+          $("<span class='btn btn-success btn-lg' data-id='#{data.attributes.id}'>#{data.attributes.name}</span>")
+            .appendTo("#artists_selected")
+            .click () -> $(this).remove()
+      })
+      return ''
     if not $("#artists_selected > [data-id=#{artist_id}]").length
       $("<span class='btn btn-success btn-lg' data-id='#{artist_id}'>#{artist_name}</span>")
         .appendTo("#artists_selected")

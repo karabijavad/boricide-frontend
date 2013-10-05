@@ -86,7 +86,7 @@ $("#newshow_submit").click () ->
       artists.push artist.attributes
     new_concert = new ConcertModel(
       {
-        name: $("#newshow_title").val()
+        name: $("#newshow_title_accepted").text()
         description: $("#newshow_description").val()
         start_time: $("#newshow_start_time").text()
         end_time: $("#newshow_end_time").text()
@@ -100,3 +100,9 @@ $("#newshow_submit").click () ->
       success: () ->
         $("#newshow_loading").css("visibility", "hidden")
     })
+
+$("#newshow_title").focusout () ->
+  $("#newshow_title").hide()
+  $("#newshow_title_accepted").text($("#newshow_title").val()).show().click () ->
+    $("#newshow_title_accepted").hide()
+    $("#newshow_title").show().focus()

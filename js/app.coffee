@@ -93,7 +93,7 @@ $(document).ready () ->
   address = getURLParameter("address")
   console.log("address is")
   console.log(address)
-  if address
+  if address is not "null"
     GMaps.geocode({
       address: address,
       callback: (results, status) ->

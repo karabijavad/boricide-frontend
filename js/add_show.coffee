@@ -99,6 +99,7 @@ $("#newshow_submit").click () ->
     new_concert.save(null,{
       success: () ->
         $("#newshow_loading").css("visibility", "hidden")
+        pull_concerts()
     })
 
 $("#newshow_title").focusout () ->

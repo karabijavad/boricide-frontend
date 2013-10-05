@@ -91,13 +91,14 @@ $(document).ready () ->
   })
 
   address = getURLParameter("address")
+  console.log("address is")
+  console.log(address)
   if address
     GMaps.geocode({
       address: address,
       callback: (results, status) ->
         if status == 'OK'
           latlng = results[0].geometry.location;
-          results[0].geometry.location;
           window.map.setCenter(latlng.lat(), latlng.lng());
     });
 

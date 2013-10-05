@@ -4,6 +4,12 @@ apikey = "d9f3100bb2563e9511032bdec01c6d42f8691013"
 Backbone.Tastypie.apiKey["username"] = username
 Backbone.Tastypie.apiKey["key"] = apikey
 
+`function getURLParameter(name) {
+    return decodeURI(
+        (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
+    );
+}`
+
 class ArtistModel extends Backbone.Model
   url: () ->
     return "#{api_url}#{@id}"
@@ -83,6 +89,18 @@ $(document).ready () ->
     lng: -87.694332,
     zoom: 12
   })
+
+  address = getURLParameter("address")
+  if address
+    GMaps.geocode({
+      address: address,
+      callback: (results, status) ->
+        if status == 'OK'
+          latlng = results[0].geometry.location;
+          results[0].geometry.location;
+          window.map.setCenter(latlng.lat(), latlng.lng());
+    });
+
   if navigator.geolocation
     navigator.geolocation.getCurrentPosition (position) ->
       map.setCenter(position.coords.latitude, position.coords.longitude)

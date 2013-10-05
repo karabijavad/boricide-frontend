@@ -58,10 +58,12 @@ artists = new ArtistCollection()
 
 pull_concerts = () ->
   options = {}
-  if $('#start_time').text()
-    options["start_time__gte"] = $('#start_time').text()
-  if $('#end_time').text()
-    options["start_time__lte"] = $('#end_time').text()
+  $drp = $('#reportrange').data("daterangepicker")
+  if $drp
+    options["start_time__gte"] = $drp.startDate.toISOString()
+    options["start_time__lte"] = $drp.endDate.toISOString()
+    options["end_time__gte"] = $drp.startDate.toISOString()
+    options["end_time__lte"] = $drp.endDate.toISOString()
   if $('#max_cost').val()
     options["door_price__lte"] = $('#max_cost').val()
     options["advance_price__lte"] = $('#max_cost').val()
@@ -153,8 +155,6 @@ $(document).ready () ->
       },
       (start, end) ->
          $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-         $('#start_time').text(start.toISOString())
-         $('#end_time').text(end.toISOString())
   );
 
   artist_map = {}

@@ -8,18 +8,21 @@
 
       <label>Date</label>
       <span class='btn btn-default btn-lg 'id="newshow_daterange">Select date</span>
-
+      <p class="help-block">Select the beginning and end dates from the pop out</p>
       <label>Venue</label>
       <input type="text" id="venue_text" placeholder="Click to select"/>
       <span class='btn btn-success btn-lg' id='venue_selected' style="display:none;"/>
+      <p class="help-block">Enter the venue name here. If it is available, it will be displayed below the input box.</p>
 
       <label>Door price</label>
       <input type="text" id="newshow_doorprice" placeholder="Door price"/>
       <span class='btn btn-large btn-success' id='newshow_doorprice_accepted' style="display:none;"/>
+      <p class="help-block">Enter the door price of the show, sans $</p>
 
       <label>Artists</label>
       <div id="artists_selected" style="padding-bottom:10px;"/>
       <input type="text" id="artist_text" placeholder="Artist name"/>
+      <p class="help-block">Enter the artists name here. Then, select them from the drop down.</p>
       <br/>
       <span class='btn btn-large btn-primary' id='newshow_submit'>Submit</span>
       <img id="newshow_loading" src="/img/loading.gif" style="padding-right:15px; visibility:hidden;" />

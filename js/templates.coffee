@@ -41,12 +41,6 @@ artist_info_template = Handlebars.compile("
 {{/if}}
 ")
 
-add_show_template = Handlebars.compile("
-<div class='page-header'>
-  <h1>Add show</h1>
-</div>
-")
-
 $(document).on 'click', '.concert-info .artists-list .artist', (e) ->
   $modal = $('#ajax-modal')
   $('body').modalmanager('loading')

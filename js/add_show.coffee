@@ -5,7 +5,7 @@ $("#venue_text").typeahead({
     options = []
     $.get "#{api_url}/api/v1/venue/", { "name__icontains": query, "username": username, "api_key": apikey }, (data) ->
       if not data.objects.length
-        return process([query])
+        return process(["#{query} not found. add address to add to database"])
       for venue in data.objects
         venue_map[venue["name"]] = venue["id"]
         options.push(venue["name"])
@@ -18,6 +18,7 @@ $("#venue_text").typeahead({
       new_venue.url = "#{api_url}/api/v1/venue/"
       new_venue.save(null,{
         success: (data) ->
+          $("#venue_text").hide()
           $("#venue_selected")
             .text(data.attributes.name)
             .attr("data-id", data.attributes.id)

@@ -60,8 +60,6 @@ $('#newshow_daterange').daterangepicker(
     (start, end) ->
        $('#newshow_daterange').removeClass('btn-default').addClass("btn-success")
        $('#newshow_daterange').html(start.fromNow() + ' - ' + end.fromNow());
-       $('#newshow_start_time').text(start.toISOString())
-       $('#newshow_end_time').text(end.toISOString())
 );
 
 $("#newshow_submit").click () ->
@@ -88,8 +86,8 @@ $("#newshow_submit").click () ->
       {
         name: $("#newshow_title_accepted").text()
         description: $("#newshow_description").val()
-        start_time: $("#newshow_start_time").text()
-        end_time: $("#newshow_end_time").text()
+        start_time: $("#newshow_daterange").data("daterangepicker").startDate.toISOString()
+        end_time: $("#newshow_daterange").data("daterangepicker").endDate.toISOString()
         venue: venue_collection.models[0].attributes
         artists: artists
         door_price: $("#newshow_doorprice_accepted").attr('data-doorprice')

@@ -23,13 +23,16 @@ class VenueModel extends Backbone.Model
   url: () ->
     return "#{api_url}#{@id}"
   initialize: () ->
+    @marker = {}
+    @concerts = []
+  place: () ->
     @marker = window.map.addMarker({
         lat: @attributes.lat,
         lng: @attributes.lng,
         infoWindow: {}
     })
-    @concerts = []
   updateInfoWindow: () ->
+    console.log(@concerts)
     @marker.infoWindow.setContent concert_template({concerts: @concerts, venue: this})
 
 class VenueCollection extends Backbone.Collection
@@ -44,6 +47,7 @@ class ConcertModel extends Backbone.Model
     @venue = venues.findWhere @attributes.venue
     if not @venue
       @venue = new VenueModel @attributes.venue
+      @venue.place()
       venues.add @venue
     @venue.concerts.push this
 
@@ -80,6 +84,7 @@ pull_concerts = () ->
     data: options,
     success: () ->
       venues.each (venue) ->
+        venue.place()
         venue.updateInfoWindow()
       $('.modal-scrollable').trigger('click')
   })

@@ -4,12 +4,29 @@ $("#venue_text").typeahead({
   source: (query, process) ->
     options = []
     $.get "#{api_url}/api/v1/venue/", { "name__icontains": query, "username": username, "api_key": apikey }, (data) ->
+      if not data.objects.length
+        return process([query])
       for venue in data.objects
         venue_map[venue["name"]] = venue["id"]
         options.push(venue["name"])
       return process(options)
   updater: (venue_name) ->
     venue_id = venue_map[venue_name]
+    if not venue_id
+      new_venue = new VenueModel({name: venue_name.match(/[^,]*/)[0], address: $.trim(venue_name.match(/,(.*)/)[1])})
+      console.log(new_venue)
+      new_venue.url = "#{api_url}/api/v1/venue/"
+      new_venue.save(null,{
+        success: (data) ->
+          $("#venue_selected")
+            .text(data.attributes.name)
+            .attr("data-id", data.attributes.id)
+            .click () ->
+              $("#venue_selected").text('').attr("data-id", '').hide()
+              $("#venue_text").val(data.attributes.name).show().focus()
+            .show()
+      })
+      return ''
     $("#venue_text").hide()
     $("#venue_selected")
       .text(venue_name)

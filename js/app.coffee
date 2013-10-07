@@ -54,10 +54,7 @@ pull_concerts = () ->
   options = {}
   $drp = $('#reportrange').data("daterangepicker")
   if $drp
-    options["start_time__gte"] = $drp.startDate.toISOString()
-    options["start_time__lte"] = $drp.endDate.toISOString()
-    options["end_time__gte"] = $drp.startDate.toISOString()
-    options["end_time__lte"] = $drp.endDate.toISOString()
+    options["start_time__range"] = "#{$drp.startDate.toISOString()},#{$drp.endDate.toISOString()}"
   if $('#max_cost').val()
     options["door_price__lte"] = $('#max_cost').val()
     options["advance_price__lte"] = $('#max_cost').val()

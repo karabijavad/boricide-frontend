@@ -11,8 +11,6 @@ Backbone.Tastypie.apiKey["key"] = apikey
 }`
 
 class ArtistModel extends Backbone.Model
-  url: () ->
-    return "#{api_url}#{@id}"
 
 class ArtistCollection extends Backbone.Collection
   url: () ->

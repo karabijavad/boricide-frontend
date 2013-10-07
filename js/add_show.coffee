@@ -46,9 +46,9 @@ $("#artist_text").typeahead({
   source: (query, process) ->
     options = []
     $.get "#{api_url}/api/v1/artist/",
-        "name__icontains": query
-        "username": username
-        "api_key": apikey,
+      "name__icontains": query
+      "username": username
+      "api_key": apikey,
       (data) ->
         unless data.objects.length then return process([query])
         for artist in data.objects
@@ -57,14 +57,12 @@ $("#artist_text").typeahead({
         return process(options)
   updater: (artist_name) ->
     artist_id = artist_map[artist_name]
-    if not artist_map[artist_name]
-      $.when artists.create
-        name: artist_name
-      .done (data) ->
+    unless artist_id then artists.create {name: artist_name}
+      success: (data) ->
         $("<span class='btn btn-success btn-lg' data-id='#{data.attributes.id}'>#{data.attributes.name}</span>")
           .appendTo("#artists_selected")
           .click () -> $(this).remove()
-      return ''
+        return ''
     if not $("#artists_selected > [data-id=#{artist_id}]").length
       $("<span class='btn btn-success btn-lg' data-id='#{artist_id}'>#{artist_name}</span>")
         .appendTo("#artists_selected")
@@ -91,35 +89,26 @@ $("#newshow_submit").click () ->
   for artist in $("#artists_selected > span")
     artists_ids.push $(artist).attr('data-id')
   $.when(
-    artists_collection.fetch({
-      url: "#{artists_collection.url()}?id__in=#{artists_ids.join(',')}"
-    }),
-    venue_collection.fetch({
+    artists_collection.fetch
+      url: "#{artists_collection.url()}?id__in=#{artists_ids.join(',')}",
+    venue_collection.fetch
       data:
         'id': parseInt($("#venue_selected").attr("data-id"))
-    })
-  ).done () ->
-    window.dbg = artists_collection
-    artists = []
-    artists_collection.each (artist) ->
-      artists.push artist.attributes
-    new_concert = new ConcertModel(
-      {
-        name: $("#newshow_title_accepted").text()
-        description: $("#newshow_description").val()
-        start_time: $("#newshow_daterange").data("daterangepicker").startDate.toISOString()
-        end_time: $("#newshow_daterange").data("daterangepicker").endDate.toISOString()
-        venue: venue_collection.models[0].attributes
-        artists: artists
-        door_price: $("#newshow_doorprice_accepted").attr('data-doorprice')
-      }
-    )
-    new_concert.url = "#{api_url}/api/v1/concert/"
-    new_concert.save(null,{
-      success: () ->
-        $("#newshow_loading").css("visibility", "hidden")
-        pull_concerts()
-    })
+   ).done () ->
+      artists = []
+      artists_collection.each (artist) ->
+        artists.push artist.attributes
+      $.when concerts.create
+          name: $("#newshow_title_accepted").text()
+          description: $("#newshow_description").val()
+          start_time: $("#newshow_daterange").data("daterangepicker").startDate.toISOString()
+          end_time: $("#newshow_daterange").data("daterangepicker").endDate.toISOString()
+          venue: venue_collection.models[0].attributes
+          artists: artists
+          door_price: $("#newshow_doorprice_accepted").attr('data-doorprice')
+      .done (data) ->
+          $("#newshow_loading").css("visibility", "hidden")
+          pull_concerts()
 
 $("#newshow_title").focusout () ->
   if $("#newshow_title").val()

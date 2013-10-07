@@ -83,10 +83,8 @@ $('#newshow_daterange').daterangepicker(
 
 $("#newshow_submit").click () ->
   $("#newshow_loading").css("visibility", "visible")
-  venue_collection = new VenueCollection()
-  venue_collection.url = "#{api_url}/api/v1/venue/"
-  artists_collection = new ArtistCollection()
-  artists_collection.url = "#{api_url}/api/v1/artist/"
+  venue_collection = new VenueCollection([], {url: "#{api_url}/api/v1/venue/"})
+  artists_collection = new ArtistCollection([], {url: "#{api_url}/api/v1/artist/"})
   artists_ids = []
   for artist in $("#artists_selected > span")
     artists_ids.push $(artist).attr('data-id')

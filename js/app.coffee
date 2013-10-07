@@ -43,12 +43,9 @@ class ConcertModel extends Backbone.Model
 class ConcertCollection extends Backbone.Collection
   model: ConcertModel
 
-concerts = new ConcertCollection()
-concerts.url = "#{api_url}/api/v1/concert/"
-venues = new VenueCollection()
-venues.url = "#{api_url}/api/v1/venue/"
-artists = new ArtistCollection()
-artists.url = "#{api_url}/api/v1/artist/"
+concerts = new ConcertCollection([], {url: "#{api_url}/api/v1/concert/"})
+venues = new VenueCollection([], {url: "#{api_url}/api/v1/venue/"})
+artists = new ArtistCollection([], {url: "#{api_url}/api/v1/artist/"})
 
 pull_concerts = () ->
   options = {}

@@ -64,46 +64,43 @@ pull_concerts = () ->
     venues.remove(model)
   map.removeMarkers()
 
-  concerts.fetch({
+  concerts.fetch
     data: options,
     success: () ->
       venues.each (venue) ->
         venue.place()
         venue.updateInfoWindow()
       $('.modal-scrollable').trigger('click')
-  })
 
 $(document).ready () ->
-  window.map = new GMaps({
+  window.map = new GMaps
     div: '#map',
     lat: 41.920955,
     lng: -87.694332,
     zoom: 12
-  })
 
-  address = getURLParameter("address")
+  address = getURLParameter "address"
   if address is not "null"
-    GMaps.geocode({
+    GMaps.geocode
       address: address,
       callback: (results, status) ->
         if status == 'OK'
           latlng = results[0].geometry.location;
           window.map.setCenter(latlng.lat(), latlng.lng());
-    });
 
   if navigator.geolocation
     navigator.geolocation.getCurrentPosition (position) ->
       map.setCenter(position.coords.latitude, position.coords.longitude)
-  map.addControl({
+
+  map.addControl
     position: 'right_top',
     content: 'Filters',
-    style: {
+    style:
       margin: '5px',
       padding: '1px 6px',
       border: 'solid 1px #717B87',
       background: '#fff'
-    },
-    events: {
+    events:
       click: () ->
         if $("#map").width() == $(window).width()
           $("#map").animate({"width": "75%"}, 150 )
@@ -111,42 +108,33 @@ $(document).ready () ->
         else
           $("#map").animate({"width": "100%"}, 150 )
           $("#sidebar").hide().animate({"width": "0%"}, 150 )
-    }
-  })
-  map.addControl({
+  map.addControl
     position: 'top_left',
     content: 'Add a show',
-    style: {
+    style:
       margin: '5px',
       padding: '1px 6px',
       border: 'solid 1px #717B87',
       background: '#fff'
-    },
-    events: {
+    events:
       click: () ->
         $('body').modalmanager('loading')
         $modal = $('#ajax-modal')
         $modal.load '/add_show.html', '', () ->
           $modal.modal()
-    }
-  })
 
-  $('#reportrange').daterangepicker(
-      {
-        timePicker: true,
-        startDate: moment(),
-        endDate: moment().add('days', 7).endOf('day')
-        ranges: {
-           'Today': [moment().startOf('day'), moment().endOf('day')],
-           'This coming week': [moment().startOf('day'), moment().add('days', 7).endOf('day')],
-        },
-      },
-      (start, end) ->
-         $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-  );
+  $('#reportrange').daterangepicker
+    timePicker: true,
+    startDate: moment(),
+    endDate: moment().add('days', 7).endOf('day')
+    ranges:
+       'Today': [moment().startOf('day'), moment().endOf('day')],
+       'This coming week': [moment().startOf('day'), moment().add('days', 7).endOf('day')],
+    (start, end) ->
+       $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
 
   artist_map = {}
-  $("#artist_name").typeahead({
+  $("#artist_name").typeahead
     source: (query, process) ->
       options = []
       $.get "#{api_url}/api/v1/artist/", {"name__icontains": query, "username": username, "api_key": apikey}, (data) ->
@@ -165,7 +153,6 @@ $(document).ready () ->
           $("#artist_name").val('').show()
         .show()
       return ''
-  })
 
   $("#filters_submit").click () ->
     pull_concerts()

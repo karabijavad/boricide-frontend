@@ -1,6 +1,5 @@
 venue_map = {}
-
-$("#venue_text").typeahead({
+$("#venue_text").typeahead
   source: (query, process) ->
     options = []
     $.get "#{api_url}/api/v1/venue/",
@@ -36,11 +35,9 @@ $("#venue_text").typeahead({
         $("#venue_selected").text('').attr("data-id", '').hide()
         $("#venue_text").val(venue_name).show().focus()
       .show()
-})
 
 artist_map = {}
-
-$("#artist_text").typeahead({
+$("#artist_text").typeahead
   source: (query, process) ->
     options = []
     $.get "#{api_url}/api/v1/artist/",
@@ -68,21 +65,19 @@ $("#artist_text").typeahead({
         .appendTo("#artists_selected")
         .click () -> $(this).remove()
     return ''
-})
 
-$('#newshow_daterange').daterangepicker(
-    {
-      timePicker: true,
-      startDate: moment().hour(20)
-      endDate: moment().add('days', 1).hour(2)
-    },
-    (start, end) ->
-       $('#newshow_daterange').removeClass('btn-default').addClass("btn-success")
-       $('#newshow_daterange').html(start.fromNow() + ' - ' + end.fromNow());
-);
+$('#newshow_daterange').daterangepicker
+    timePicker: true,
+    startDate: moment().hour(20)
+    endDate: moment().add('days', 1).hour(2)
+  (start, end) ->
+     $('#newshow_daterange')
+       .removeClass('btn-default')
+       .addClass("btn-success")
+       .html(start.fromNow() + ' - ' + end.fromNow());
 
 $("#newshow_submit").click () ->
-  $("#newshow_loading").css("visibility", "visible")
+  $("#newshow_loading").css "visibility", "visible"
   venue_collection = new VenueCollection([], {url: "#{api_url}/api/v1/venue/"})
   artists_collection = new ArtistCollection([], {url: "#{api_url}/api/v1/artist/"})
   artists_ids = []
@@ -108,7 +103,7 @@ $("#newshow_submit").click () ->
           door_price: $("#newshow_doorprice_accepted").attr('data-doorprice')
       }, {
         success: (data) ->
-          $("#newshow_loading").css("visibility", "hidden")
+          $("#newshow_loading").css "visibility", "hidden"
           pull_concerts()
       }
 

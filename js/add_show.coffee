@@ -67,9 +67,9 @@ $("#artist_text").typeahead
     return ''
 
 $('#newshow_daterange').daterangepicker
-    timePicker: true,
-    startDate: moment().hour(20)
-    endDate: moment().add('days', 1).hour(2)
+  timePicker: true,
+  startDate: moment().hour(20)
+  endDate: moment().add('days', 1).hour(2)
   (start, end) ->
      $('#newshow_daterange')
        .removeClass('btn-default')

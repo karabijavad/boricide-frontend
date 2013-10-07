@@ -20,8 +20,6 @@ class ArtistCollection extends Backbone.Collection
   model: ArtistModel
 
 class VenueModel extends Backbone.Model
-  url: () ->
-    return "#{api_url}#{@id}"
   initialize: () ->
     @marker = {}
     @concerts = []
@@ -32,7 +30,6 @@ class VenueModel extends Backbone.Model
         infoWindow: {}
     })
   updateInfoWindow: () ->
-    console.log(@concerts)
     @marker.infoWindow.setContent concert_template({concerts: @concerts, venue: this})
 
 class VenueCollection extends Backbone.Collection
@@ -98,8 +95,6 @@ $(document).ready () ->
   })
 
   address = getURLParameter("address")
-  console.log("address is")
-  console.log(address)
   if address is not "null"
     GMaps.geocode({
       address: address,

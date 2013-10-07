@@ -16,19 +16,17 @@ $("#venue_text").typeahead({
   updater: (venue_name) ->
     venue_id = venue_map[venue_name]
     if not venue_id
-      $.when venues.create
-        name:  venue_name.match(/[^,]*/)[0]
-        address: $.trim venue_name.match(/,(.*)/)[1]
-      .done (data) ->
-        console.log(data)
-        $("#venue_text").hide()
-        $("#venue_selected")
-          .text(data.attributes.name)
-          .attr("data-id", data.attributes.id)
-          .click () ->
-            $("#venue_selected").text('').attr("data-id", '').hide()
-            $("#venue_text").val(data.attributes.name).show().focus()
-          .show()
+      venues.create {name:  venue_name.match(/[^,]*/)[0], address: $.trim venue_name.match(/,(.*)/)[1] },
+        success: (data) ->
+          console.log(data)
+          $("#venue_text").hide()
+          $("#venue_selected")
+            .text(data.attributes.name)
+            .attr("data-id", data.attributes.id)
+            .click () ->
+              $("#venue_selected").text('').attr("data-id", '').hide()
+              $("#venue_text").val(data.attributes.name).show().focus()
+            .show()
       return ''
     $("#venue_text").hide()
     $("#venue_selected")
@@ -57,12 +55,14 @@ $("#artist_text").typeahead({
         return process(options)
   updater: (artist_name) ->
     artist_id = artist_map[artist_name]
-    unless artist_id then artists.create {name: artist_name}
-      success: (data) ->
-        $("<span class='btn btn-success btn-lg' data-id='#{data.attributes.id}'>#{data.attributes.name}</span>")
-          .appendTo("#artists_selected")
-          .click () -> $(this).remove()
-        return ''
+    unless artist_id
+      artists.create {name: artist_name}
+        success: (data) ->
+          $("<span class='btn btn-success btn-lg' data-id='#{data.attributes.id}'>#{data.attributes.name}</span>")
+            .appendTo("#artists_selected")
+            .click () ->
+              $(this).remove()
+      return ''
     if not $("#artists_selected > [data-id=#{artist_id}]").length
       $("<span class='btn btn-success btn-lg' data-id='#{artist_id}'>#{artist_name}</span>")
         .appendTo("#artists_selected")
@@ -84,13 +84,15 @@ $('#newshow_daterange').daterangepicker(
 $("#newshow_submit").click () ->
   $("#newshow_loading").css("visibility", "visible")
   venue_collection = new VenueCollection()
+  venue_collection.url = "#{api_url}/api/v1/venue/"
   artists_collection = new ArtistCollection()
+  artists_collection.url = "#{api_url}/api/v1/artist/"
   artists_ids = []
   for artist in $("#artists_selected > span")
     artists_ids.push $(artist).attr('data-id')
   $.when(
     artists_collection.fetch
-      url: "#{artists_collection.url()}?id__in=#{artists_ids.join(',')}",
+      url: "#{artists_collection.url}?id__in=#{artists_ids.join(',')}",
     venue_collection.fetch
       data:
         'id': parseInt($("#venue_selected").attr("data-id"))
@@ -98,7 +100,7 @@ $("#newshow_submit").click () ->
       artists = []
       artists_collection.each (artist) ->
         artists.push artist.attributes
-      $.when concerts.create
+      concerts.create {
           name: $("#newshow_title_accepted").text()
           description: $("#newshow_description").val()
           start_time: $("#newshow_daterange").data("daterangepicker").startDate.toISOString()
@@ -106,9 +108,11 @@ $("#newshow_submit").click () ->
           venue: venue_collection.models[0].attributes
           artists: artists
           door_price: $("#newshow_doorprice_accepted").attr('data-doorprice')
-      .done (data) ->
+      }, {
+        success: (data) ->
           $("#newshow_loading").css("visibility", "hidden")
           pull_concerts()
+      }
 
 $("#newshow_title").focusout () ->
   if $("#newshow_title").val()

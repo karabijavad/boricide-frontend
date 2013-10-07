@@ -13,8 +13,6 @@ Backbone.Tastypie.apiKey["key"] = apikey
 class ArtistModel extends Backbone.Model
 
 class ArtistCollection extends Backbone.Collection
-  url: () ->
-    return "#{api_url}/api/v1/artist/"
   model: ArtistModel
 
 class VenueModel extends Backbone.Model
@@ -31,13 +29,9 @@ class VenueModel extends Backbone.Model
     @marker.infoWindow.setContent concert_template({concerts: @concerts, venue: this})
 
 class VenueCollection extends Backbone.Collection
-  url: () ->
-    return "#{api_url}/api/v1/venue/"
   model: VenueModel
 
 class ConcertModel extends Backbone.Model
-  url: () ->
-    return "#{api_url}#{@id}"
   initialize: () ->
     @venue = venues.findWhere @attributes.venue
     if not @venue
@@ -47,13 +41,14 @@ class ConcertModel extends Backbone.Model
     @venue.concerts.push this
 
 class ConcertCollection extends Backbone.Collection
-  url: () ->
-    return "#{api_url}/api/v1/concert/"
   model: ConcertModel
 
 concerts = new ConcertCollection()
+concerts.url = "#{api_url}/api/v1/concert/"
 venues = new VenueCollection()
+venues.url = "#{api_url}/api/v1/venue/"
 artists = new ArtistCollection()
+artists.url = "#{api_url}/api/v1/artist/"
 
 pull_concerts = () ->
   options = {}

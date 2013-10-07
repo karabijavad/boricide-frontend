@@ -136,13 +136,12 @@ $(document).ready () ->
           $modal.modal()
     }
   })
-  pull_concerts()
 
   $('#reportrange').daterangepicker(
       {
         timePicker: true,
         startDate: moment(),
-        endDate: moment().add('days', 1).hour('2').minutes('0').seconds('0')
+        endDate: moment().add('days', 7).endOf('day')
         ranges: {
            'Today': [moment().startOf('day'), moment().endOf('day')],
            'This coming week': [moment().startOf('day'), moment().add('days', 7).endOf('day')],
@@ -176,3 +175,5 @@ $(document).ready () ->
 
   $("#filters_submit").click () ->
     pull_concerts()
+
+  pull_concerts()

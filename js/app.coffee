@@ -20,13 +20,15 @@ class VenueModel extends Backbone.Model
     @marker = {}
     @concerts = []
   place: () ->
-    @marker = window.map.addMarker({
+    @marker = window.map.addMarker
         lat: @attributes.lat,
         lng: @attributes.lng,
         infoWindow: {}
-    })
   updateInfoWindow: () ->
-    @marker.infoWindow.setContent concert_template({concerts: @concerts, venue: this})
+    @concerts.sort (a, b) -> return (a.attributes.start_time > b.attributes.start_time)
+    @marker.infoWindow.setContent concert_template
+      concerts: @concerts
+      venue: this
 
 class VenueCollection extends Backbone.Collection
   model: VenueModel
@@ -124,24 +126,28 @@ $(document).ready () ->
           $modal.modal()
 
   $('#reportrange').daterangepicker
-    timePicker: true,
-    startDate: moment(),
-    endDate: moment().add('days', 7).endOf('day')
+    timePicker: true
+    startDate: moment().startOf('hour')
+    endDate: moment().add('days', 8).hour(2).startOf('hour')
     ranges:
-       'Today': [moment().startOf('day'), moment().endOf('day')],
-       'This coming week': [moment().startOf('day'), moment().add('days', 7).endOf('day')],
+       'Today': [moment().startOf('day'), moment().add('day', 1).hour(2).startOf('hour')]
+       'This coming week': [moment(), moment().add('days', 8).hour(2).startOf('hour')],
     (start, end) ->
-       $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+       $('#reportrange span').html "#{start.fromNow()} - #{end.fromNow()}"
 
   artist_map = {}
   $("#artist_name").typeahead
     source: (query, process) ->
       options = []
-      $.get "#{api_url}/api/v1/artist/", {"name__icontains": query, "username": username, "api_key": apikey}, (data) ->
-        for artist in data.objects
-          artist_map[artist["name"]] = artist["id"]
-          options.push(artist["name"])
-        return process(options)
+      $.get "#{api_url}/api/v1/artist/",
+        "name__icontains": query
+        "username": username
+        "api_key": apikey,
+        (data) ->
+          for artist in data.objects
+            artist_map[artist["name"]] = artist["id"]
+            options.push(artist["name"])
+          return process(options)
     updater: (artist_name) ->
       artist_id = artist_map[artist_name]
       $("#artist_name").hide()

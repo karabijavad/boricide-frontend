@@ -1,6 +1,6 @@
 api_url = "http://showshows.net"
 username = "guest"
-apikey = "d9f3100bb2563e9511032bdec01c6d42f8691013"
+apikey = "5862eea71e455500c81b5413a8bfadbeee782d14"
 Backbone.Tastypie.apiKey["username"] = username
 Backbone.Tastypie.apiKey["key"] = apikey
 

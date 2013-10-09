@@ -1,6 +1,6 @@
 api_url = "http://showshows.net"
 username = "guest"
-apikey = "5862eea71e455500c81b5413a8bfadbeee782d14"
+apikey = "94906374236cf56a9fe6c74717f42e40efa7deef"
 Backbone.Tastypie.apiKey["username"] = username
 Backbone.Tastypie.apiKey["key"] = apikey
 
@@ -50,7 +50,7 @@ venues = new VenueCollection([], {url: "#{api_url}/api/v1/venue/"})
 artists = new ArtistCollection([], {url: "#{api_url}/api/v1/artist/"})
 
 pull_concerts = () ->
-  options = {}
+  options = {'limit': 10000}
   $drp = $('#reportrange').data("daterangepicker")
   if $drp
     options["start_time__range"] = "#{$drp.startDate.toISOString()},#{$drp.endDate.toISOString()}"

@@ -50,7 +50,13 @@ venues = new VenueCollection([], {url: "#{api_url}/api/v1/venue/"})
 artists = new ArtistCollection([], {url: "#{api_url}/api/v1/artist/"})
 
 pull_concerts = () ->
-  options = {'limit': 10000}
+  options = {
+    'limit': 10000
+    'venue__lat__lte': window.map.getBounds().getNorthEast().lat()
+    'venue__lat__gte': window.map.getBounds().getSouthWest().lat()
+    'venue__lng__lte': window.map.getBounds().getNorthEast().lng()
+    'venue__lng__gte': window.map.getBounds().getSouthWest().lng()
+  }
   $drp = $('#reportrange').data("daterangepicker")
   if $drp
     options["start_time__range"] = "#{$drp.startDate.toISOString()},#{$drp.endDate.toISOString()}"

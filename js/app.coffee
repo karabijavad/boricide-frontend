@@ -87,6 +87,9 @@ $(document).ready () ->
     lng: -87.694332,
     zoom: 12
 
+  google.maps.event.addListenerOnce window.map.map, 'idle', () ->
+    pull_concerts()
+
   address = getURLParameter "address"
   if address is not "null"
     GMaps.geocode
@@ -169,4 +172,3 @@ $(document).ready () ->
   $("#filters_submit").click () ->
     pull_concerts()
 
-  pull_concerts()

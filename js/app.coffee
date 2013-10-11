@@ -75,6 +75,8 @@ pull_concerts = () ->
   while (model = venues.first())
     venues.remove(model)
   map.removeMarkers()
+  while (model = concerts.first())
+    concerts.remove(model)
 
   concerts.fetch
     data: options,

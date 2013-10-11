@@ -55,7 +55,7 @@ artists.url = "#{api_url}/api/v1/artist/"
 
 pull_concerts = () ->
   options =
-    'limit': 10000
+    'limit': 0
     'venue__lat__lte': window.map.getBounds().getNorthEast().lat()
     'venue__lat__gte': window.map.getBounds().getSouthWest().lat()
     'venue__lng__lte': window.map.getBounds().getNorthEast().lng()

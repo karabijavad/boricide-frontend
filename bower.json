@@ -16,7 +16,7 @@
   "dependencies": {
     "jquery" : "*",
     "underscore" : "*",
-    "backbone": "<1.1",
+    "backbone": "*",
     "handlebars": "*",
     "backbone-tastypie": "https://github.com/karabijavad/backbone-tastypie.git",
     "gmaps": "*",

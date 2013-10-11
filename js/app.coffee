@@ -5,10 +5,11 @@ Backbone.Tastypie.apiKey["username"] = username
 Backbone.Tastypie.apiKey["key"] = apikey
 
 `function getURLParameter(name) {
-    return decodeURI(
-        (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
+    return decodeURIComponent(
+      (RegExp('[?|&]' + name + '=' + '(.+?)(&|$)').exec(location.search)||[,""])[1]
     );
-}`
+}
+`
 
 class ArtistModel extends Backbone.Model
 
@@ -45,18 +46,21 @@ class ConcertModel extends Backbone.Model
 class ConcertCollection extends Backbone.Collection
   model: ConcertModel
 
-concerts = new ConcertCollection([], {url: "#{api_url}/api/v1/concert/"})
-venues = new VenueCollection([], {url: "#{api_url}/api/v1/venue/"})
-artists = new ArtistCollection([], {url: "#{api_url}/api/v1/artist/"})
+concerts = new ConcertCollection
+concerts.url = "#{api_url}/api/v1/concert/"
+venues = new VenueCollection
+venues.url = "#{api_url}/api/v1/venue/"
+artists = new ArtistCollection
+artists.url = "#{api_url}/api/v1/artist/"
 
 pull_concerts = () ->
-  options = {
+  options =
     'limit': 10000
     'venue__lat__lte': window.map.getBounds().getNorthEast().lat()
     'venue__lat__gte': window.map.getBounds().getSouthWest().lat()
     'venue__lng__lte': window.map.getBounds().getNorthEast().lng()
     'venue__lng__gte': window.map.getBounds().getSouthWest().lng()
-  }
+
   $drp = $('#reportrange').data("daterangepicker")
   if $drp
     options["start_time__range"] = "#{$drp.startDate.toISOString()},#{$drp.endDate.toISOString()}"
@@ -90,16 +94,15 @@ $(document).ready () ->
   google.maps.event.addListenerOnce window.map.map, 'idle', () ->
     pull_concerts()
 
-  address = getURLParameter "address"
-  if address is not "null"
+  address = getURLParameter("address")
+  if address
     GMaps.geocode
       address: address,
       callback: (results, status) ->
         if status == 'OK'
           latlng = results[0].geometry.location;
           window.map.setCenter(latlng.lat(), latlng.lng());
-
-  if navigator.geolocation
+  else if navigator.geolocation
     navigator.geolocation.getCurrentPosition (position) ->
       map.setCenter(position.coords.latitude, position.coords.longitude)
 
@@ -171,4 +174,3 @@ $(document).ready () ->
 
   $("#filters_submit").click () ->
     pull_concerts()
-

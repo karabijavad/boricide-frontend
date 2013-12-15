@@ -1,6 +1,6 @@
-api_url = "http://showshows.net"
+api_url = "http://23.253.41.107:81"
 username = "guest"
-apikey = "94906374236cf56a9fe6c74717f42e40efa7deef"
+apikey = "c43c0a99b60c2d093ee2d2242449d2a6a2021c32"
 Backbone.Tastypie.apiKey["username"] = username
 Backbone.Tastypie.apiKey["key"] = apikey
 
@@ -78,8 +78,14 @@ pull_concerts = () ->
   while (model = concerts.first())
     concerts.remove(model)
 
+  console.log("fetching concerts")
   concerts.fetch
-    data: options,
+    data: options
+    error: (data, a) ->
+      console.log("error")
+      console.log(data)
+      console.log(a)
+      $('.modal-scrollable').trigger('click')
     success: () ->
       venues.each (venue) ->
         venue.place()
